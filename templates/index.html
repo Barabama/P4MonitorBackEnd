@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>index</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to my Flask App</h1>
+    <p>This is the default page.</p>
+    <button onclick="readTopo()">read topo</button>
+    <button onclick="sendProbe()">send probe</button>
+    <button onclick="readCounter()">read counter</button>
+    <button onclick="stop()">stop</button>
+    <button onclick="readTable()">read table</button>
+    <br>
+    <form>
+      <input type="checkbox" name="args" value="probe">probe
+      <input type="checkbox" name="args" value="ipv4">ipv4
+      <input type="checkbox" name="args" value="ecmp">ecmp
+    </form>
+    <button onclick="writeTable()">write table</button>
+    <br>
+    <textarea readonly cols="75" rows="15" id="output"></textarea>
+
+    <script>
+      function readTopo() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("output").innerHTML = this.responseText;
+          }
+        };
+        xhr.open("GET", "/read_topo", true);
+        xhr.send();
+      }
+
+      var timerId;
+      function sendProbe() {
+        timerId = setInterval(function() {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("output").innerHTML = this.responseText;
+            }
+          };
+          xhr.open("GET", "/send_probe", true);
+          xhr.send();
+        }, 2000);
+      }
+      function stop() {
+        clearInterval(timerId);
+        document.getElementById("output").value = "stop"
+      }
+
+      function readCounter() {
+        timerId = setInterval(function() {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("output").innerHTML = this.responseText;
+            }
+          };
+          xhr.open("GET", "/read_counter", true);
+          xhr.send();
+        }, 2000);
+      }
+
+      function readTable() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("output").innerHTML = this.responseText;
+          }
+        };
+        xhr.open("GET", "/read_table", true);
+        xhr.send();
+      }
+
+      function writeTable() {
+        var checkboxes = document.getElementsByName("args");
+        let args = [];
+        for (let i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            args.push(checkboxes[i].value);
+          }
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/write_table");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            document.getElementById("output").innerHTML = this.responseText;
+          }
+        };
+        xhr.send(JSON.stringify(args));
+      }
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "target": "bmv2",
+  "p4info": "build/LinkMonitor.p4.p4info.txt",
+  "bmv2_json": "build/LinkMonitor.json",
+  "table_entries": [
+    {
+      "table": "MyIngress.ipv4_lpm",
+      "default_action": true,
+      "action_name": "MyIngress.drop",
+      "action_params": { }
+    },
+    {
+      "table": "MyEgress.probe",
+      "action_name": "MyEgress.add_probe",
+      "action_params": {
+         "swid": 3
+      }
+    }
+  ]
+}

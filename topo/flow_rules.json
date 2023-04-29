@@ -1,0 +1,47 @@
+{
+    "table_rules": [
+        {"sw": 0, "swid": 1},
+        {"sw": 1, "swid": 2},
+        {"sw": 2, "swid": 3},
+        {"sw": 3, "swid": 4}
+    ],
+    "ipv4_rules": [
+        {"sw": 0, "dst_ip_addr": "10.0.1.1", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:01:01", "forward_port": 1},
+        {"sw": 0, "dst_ip_addr": "10.0.2.2", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:02:00", "forward_port": 2},
+        {"sw": 0, "dst_ip_addr": "10.0.4.4", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:04:00", "forward_port": 3},
+    
+        {"sw": 1, "dst_ip_addr": "10.0.2.2", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:02:02", "forward_port": 1},
+        {"sw": 1, "dst_ip_addr": "10.0.3.3", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:03:00", "forward_port": 2},
+        {"sw": 1, "dst_ip_addr": "10.0.1.1", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:01:00", "forward_port": 3},
+        
+        {"sw": 2, "dst_ip_addr": "10.0.3.3", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:03:03", "forward_port": 1},
+        {"sw": 2, "dst_ip_addr": "10.0.4.4", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:04:00", "forward_port": 2},
+        {"sw": 2, "dst_ip_addr": "10.0.2.2", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:02:00", "forward_port": 3},
+    
+        {"sw": 3, "dst_ip_addr": "10.0.4.4", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:04:04", "forward_port": 1},
+        {"sw": 3, "dst_ip_addr": "10.0.1.1", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:01:00", "forward_port": 2},
+        {"sw": 3, "dst_ip_addr": "10.0.3.3", "ip_suffix": 32, "dst_eth_addr": "08:00:00:00:03:00", "forward_port": 3}
+    ],
+    "ecmp_groups": [
+        {"sw": 0, "dst_ip_addr":"10.0.3.3", "ip_suffix": 32, "ecmp_base": 2, "ecmp_count": 2},
+        
+        {"sw": 1, "dst_ip_addr":"10.0.4.4", "ip_suffix": 32, "ecmp_base": 2, "ecmp_count": 2},
+
+        {"sw": 2, "dst_ip_addr":"10.0.1.1", "ip_suffix": 32, "ecmp_base": 2, "ecmp_count": 2},
+
+        {"sw": 3, "dst_ip_addr":"10.0.2.2", "ip_suffix": 32, "ecmp_base": 2, "ecmp_count": 2}
+    ],
+    "ecmp_nhops": [
+        {"sw": 0, "ecmp_select": 2, "nhop_dmac": "08:00:00:00:02:00", "port": 2},
+        {"sw": 0, "ecmp_select": 3, "nhop_dmac": "08:00:00:00:04:00", "port": 3},
+
+        {"sw": 1, "ecmp_select": 2, "nhop_dmac": "08:00:00:00:03:00", "port": 2},
+        {"sw": 1, "ecmp_select": 3, "nhop_dmac": "08:00:00:00:01:00", "port": 3},
+
+        {"sw": 2, "ecmp_select": 2, "nhop_dmac": "08:00:00:00:04:00", "port": 2},
+        {"sw": 2, "ecmp_select": 3, "nhop_dmac": "08:00:00:00:02:00", "port": 3},
+
+        {"sw": 3, "ecmp_select": 2, "nhop_dmac": "08:00:00:00:01:00", "port": 2},
+        {"sw": 3, "ecmp_select": 3, "nhop_dmac": "08:00:00:00:03:00", "port": 3}
+    ]
+}
