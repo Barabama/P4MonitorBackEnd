@@ -19,7 +19,7 @@ https://github.com/nsg-ethz/p4-utils
 ## 项目部署
 
 ```bash
-# 项目部署在P4用户根目录
+# 项目部署在与tutorials同一目录
 cd ~
 git clone https://github.com/Barabama/P4MonitorBackEnd.git
 ```
