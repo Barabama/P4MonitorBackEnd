@@ -2,9 +2,6 @@
 
 这是一个基于P4的拓扑链路监控的后端项目
 
-## 项目演示
-
-- https://www.bilibili.com/video/BV1dT41187sf/
 
 ## 环境部署
 
